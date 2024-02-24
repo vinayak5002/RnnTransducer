@@ -68,6 +68,7 @@ class Trainer:
         data then test it on the test set and then log the results
         """
         for _ in range(self.epochs):
+            print(f"Epoch {_}/{self.epochs}:")
             self.train()
             # self.test()
             self.print_results()
@@ -120,6 +121,7 @@ class Trainer:
         """
         total_loss = 0
         self.set_train_mode()
+        print("Training...")
         for (x, y, length) in tqdm(self.train_loader):
             x = x.to(self.device)
             y = y.to(self.device)
@@ -137,7 +139,7 @@ class Trainer:
             self.history[self.__train_loss_key].append(total_loss)
         else:
             self.history[self.__train_loss_key] = [total_loss]
-
+        print(f"Train Loss: {total_loss}")
 
 def get_model_args(
         vocab_size: int,
