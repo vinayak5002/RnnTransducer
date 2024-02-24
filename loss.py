@@ -4,7 +4,7 @@ from torch import Tensor
 
 
 class Loss(nn.Module):
-    def __init__(self, phi_idx: int, device='cuda') -> None:
+    def __init__(self, phi_idx: int, device='cpu') -> None:
         super().__init__()
         self.phi_idx = phi_idx
         self.device = device
@@ -94,8 +94,8 @@ class Loss(nn.Module):
         phi_probs = self.get_phi_probs(probs, c, p)
         scores[:, c, p] = torch.logsumexp(
             torch.stack(
-                [scores[:, c, p - 1] + self.log(phi_probs),
-                scores[:, c - 1, p] + self.log(chars_probs)]
+                [scores[:, c, p - 1] + torch.log(phi_probs),
+                scores[:, c - 1, p] + torch.log(chars_probs)]
             ), dim=0)
         return scores
 
