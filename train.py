@@ -12,6 +12,8 @@ from loss import Loss
 from tqdm import tqdm
 import torch
 import os
+# from speechbrain.nnet.loss.transducer_loss import TransducerLoss
+# transducer_loss = TransducerLoss(0)
 
 OPT = {
     'sgd': torch.optim.SGD
@@ -124,15 +126,20 @@ class Trainer:
         print("Training...")
         for (x, y, length) in tqdm(self.train_loader):
             x = x.to(self.device)
+            # print('\nTarget values:')
+            # print(y)
             y = y.to(self.device)
             max_len = int(x.shape[1] * self.length_multiplier)
             x = torch.squeeze(x, dim=1)
             self.optimizer.zero_grad()
             probs, term_state = self.model(x, max_len)
+            # loss = self.model.compute_loss(x,y,T,U)
             loss = self.criterion(probs, y, length)
+            # loss = transducer_loss(probs, y, length)
             torch.nn.utils.clip_grad_norm_(self.model.parameters(), 1)
             loss.backward()
             self.optimizer.step()
+            print("Loss: ", loss.item())
             total_loss += loss.item()
         total_loss /= len(self.train_loader)
         if self.__train_loss_key in self.history:

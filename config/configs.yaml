@@ -11,8 +11,8 @@ data:
   n_mel_channels: 40
   hop_length: 200
   n_ftt: 400
-  training_file: 'files/train.csv'
-  testing_file: 'files/test.csv'
+  training_file: 'files/trainMini.csv'
+  testing_file: 'files/testMini.csv'
   max_str_len: 250
   descending_order: False
   sep: ','
@@ -26,9 +26,9 @@ training:
   checkpoints_dir: 'checkpoints'
   batch_size: 8
   optimizer: 'sgd'
-  epochs: 200
+  epochs: 2
   optim:
-    learning_rate: 0.01
+    learning_rate: 0.001
     momentum: 0.9
 
 model:

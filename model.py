@@ -214,7 +214,7 @@ class Model(nn.Module):
             phi_idx: int,
             pad_idx: int,
             sos_idx: int,
-            device='cuda'
+            device='cpu'
             ) -> None:
         super().__init__()
         self.prednet = PredNet(**prednet_params).to(device)

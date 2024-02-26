@@ -1,5 +1,3 @@
-<blk> 0
-<unk> 1
 requiring 2
 britain 3
 provoked 4
