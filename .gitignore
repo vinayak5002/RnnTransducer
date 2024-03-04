@@ -3,11 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+
+files/clips
+rnnt/*
 # C extensions
 *.so
 
-RnnT/
-files/clips
 # Distribution / packaging
 .Python
 build/

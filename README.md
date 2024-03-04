@@ -1,6 +1,6 @@
 # RNN-Transducer
 
-This is a PyTorch implementation of [Sequence Transduction with Recurrent Neural Networks](https://arxiv.org/pdf/1211.3711.pdf) speech recognition paper 
+This is a PyTorch implementation of [Sequence Transduction with Recurrent Neural Networks](https://arxi.org/pdf/1211.3711.pdf) speech recognition paper 
 
 ![RNN-T](https://user-images.githubusercontent.com/61272193/156832630-ad0c7d31-b262-470e-9b88-77088adf90ff.png)
 

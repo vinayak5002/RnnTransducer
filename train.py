@@ -15,8 +15,11 @@ import os
 # from speechbrain.nnet.loss.transducer_loss import TransducerLoss
 # transducer_loss = TransducerLoss(0)
 
+import torch.nn.functional as F
+
 OPT = {
-    'sgd': torch.optim.SGD
+    'sgd': torch.optim.SGD,
+    'adm': torch.optim.Adam
 }
 
 
@@ -134,8 +137,22 @@ class Trainer:
             self.optimizer.zero_grad()
             probs, term_state = self.model(x, max_len)
             # loss = self.model.compute_loss(x,y,T,U)
-            loss = self.criterion(probs, y, length)
+            # loss = self.criterion(probs, y, length)
             # loss = transducer_loss(probs, y, length)
+
+            loss = self.criterion(probs, y, length)
+
+            # probs = probs.permute(1, 0, 2)  
+            # batch_size = x.size(0)  
+            # input_lengths = torch.full(size=(batch_size,), fill_value=probs.size(1), dtype=torch.long)
+            # target_lengths = torch.full(size=(batch_size,), fill_value=max(length), dtype=torch.long)
+
+            # print("Probs: ", probs.shape)
+            # print("Input Lengths: ", input_lengths.shape)
+            # print("Y: ", y.shape)
+            # print("Target Lengths: ", target_lengths.shape)
+            # loss = F.ctc_loss(probs, y, input_lengths, target_lengths, blank=1, reduction='mean', zero_infinity=True)
+
             torch.nn.utils.clip_grad_norm_(self.model.parameters(), 1)
             loss.backward()
             self.optimizer.step()
@@ -238,7 +255,7 @@ def get_trainer():
     optimizer = OPT[hprams.training.optimizer](
         model.parameters(),
         lr=hprams.training.optim.learning_rate,
-        momentum=hprams.training.optim.momentum
+        # momentum=hprams.training.optim.momentum
         )
     return Trainer(
         criterion=criterion,

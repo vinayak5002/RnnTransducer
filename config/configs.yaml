@@ -4,11 +4,12 @@ length_multiplier: 1.05
 
 tokenizer:
   tokenizer_file: null
+  # vocab_path: 'files/vocab.txt'
   vocab_path: 'files/vocab_to_int.txt'
 
 data:
   sampling_rate: 16000
-  n_mel_channels: 40
+  n_mel_channels: 20
   hop_length: 200
   n_ftt: 400
   training_file: 'files/trainMini.csv'
@@ -28,7 +29,7 @@ training:
   optimizer: 'sgd'
   epochs: 2
   optim:
-    learning_rate: 0.001
+    learning_rate: 0.01
     momentum: 0.9
 
 model:
