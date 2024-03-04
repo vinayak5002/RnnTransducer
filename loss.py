@@ -42,14 +42,6 @@ class Loss(nn.Module):
         Returns:
             Tensor: The loss
         """
-        # should we normalize by the number of paths ?
-        if torch.isnan(scores).any():
-            print(scores)
-            scores = torch.where(
-                torch.isnan(scores), torch.tensor(-1.), scores
-                )
-        # else:
-        #     print("\nNo NaN values detected in scores tensor.")
         
         loss = torch.diagonal(torch.index_select(
             scores[:, :, -1], dim=1, index=target_lengths
