@@ -5,7 +5,7 @@ __pycache__/
 
 
 files/clips
-rnnt/*
+rnnt
 # C extensions
 *.so
 
